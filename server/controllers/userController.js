@@ -8,7 +8,8 @@ class UserController {
   }
   
   async auth(req, res) {
-
+    const {id} = req.query;
+    res.json(id)
   }
 }
 
