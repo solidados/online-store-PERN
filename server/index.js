@@ -1,6 +1,8 @@
-require("dotenv").config();
-const express = require("express");
-const sequelize = require("./db");
+import dotenv from 'dotenv';
+import express from "express";
+import sequelize from "./db";
+
+dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
@@ -16,4 +18,4 @@ const start = async () => {
   }
 };
 
-start();
+start().catch(error => console.error(error));
