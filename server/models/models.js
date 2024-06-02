@@ -1,5 +1,5 @@
-const sequelize = require("../db");
-const { DataTypes } = require("sequelize");
+import sequelize from "../db";
+import { DataTypes } from "sequelize";
 
 const User = sequelize.define("user", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -44,3 +44,47 @@ const ProductInfo = sequelize.define("product_info", {
   title: { type: DataTypes.STRING, allowNull: false },
   description: { type: DataTypes.STRING, allowNull: false },
 });
+
+const TypeBrand = sequelize.define('type_brand', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+})
+
+/** Describe how entity models relate to each other */
+User.hasOne(Basket);
+Basket.belongsTo(User);
+
+User.hasMany(Rating);
+Rating.belongsTo(User);
+
+Basket.hasMany(BasketProduct);
+BasketProduct.belongsTo(Basket);
+
+Type.hasMany(Product);
+Product.belongsTo(Type);
+
+Brand.hasMany(Product);
+Product.belongsTo(Brand);
+
+Product.hasMany(Rating);
+Rating.belongsTo(Product);
+
+Product.hasMany(BasketProduct);
+BasketProduct.belongsTo(Product);
+
+Product.hasMany(ProductInfo);
+ProductInfo.belongsTo(Product);
+
+Type.belongsToMany(Brand, { through: TypeBrand });
+Brand.belongsToMany(Type, { through: TypeBrand });
+
+export {
+  User,
+  Basket,
+  BasketProduct,
+  Product,
+  ProductInfo,
+  Type,
+  Brand,
+  Rating,
+  TypeBrand,
+}
